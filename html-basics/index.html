@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <nav>
+    <a href="/">Home</a>
+    <a href="/about">About</a>
+    <a href="/contact-us">Contact us</a>
+  </nav>
+
+  <div id="app"></div>
+
+  <script>
+    // this is only for demo using the file protocol
+    function getPath(path) {
+      return path.replace(`file:///Users/iliaidakiev/Development/ng-softuni-2022/html-basics/`, '').replace('index.html', '/');
+    }
+
+    const app = document.getElementById('app');
+    const routes = {
+      '/': '<h1>HOME</h1>',
+      '/about': '<h1>ABOUT</h1>',
+      '/contact-us': '<h1>CONTACT US</h1>',
+    };
+
+    function render(path) {
+      const contentForPath = routes[path];
+      if (!contentForPath) { return; }
+      app.innerHTML = contentForPath;
+    }
+
+    document.querySelectorAll('a').forEach((el) => {
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        const { target } = e;
+        const path = target.getAttribute('href');
+        render(path);
+        history.pushState('', '', path);
+      });
+    });
+
+    // render(window.location.pathname); // this will work only with http protocol
+    render(getPath(window.location.toString())); // this is only for demo using the file protocol
+
+    window.addEventListener('popstate', (e) => {
+      e.preventDefault();
+      render(location.pathname); // this will work only with http protocol
+    });
+
+    window.addEventListener('hashchange', (e) => {
+      e.preventDefault();
+      render(location.pathname); // this will work only with http protocol
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,17 @@
+<!-- el.addEventListener('click', ($event) => this.handleClickEvent($event)); -->
+<button (click)="handleClickEvent($event)">
+  <ng-container *ngIf="showLastName">Hide</ng-container>
+  <ng-container *ngIf="!showLastName">Show</ng-container>
+  last name
+</button>
+
+<div *ngIf="showSelectedIndex">
+  Selected index is {{selectedUserIndex}}
+</div>
+<ul id="list-container">
+  <li *ngFor="let user of users; let i = index;" class="list-item">
+    <!-- [staticString]="myNumber" -->
+    <app-list-item [currentUser]="user" [showLastName]="showLastName" staticString="1" [staticNumber]="1"
+      (click)="listItemClickHandler(i)" (myCustomEvent)="customEventHandler($event)"></app-list-item>
+  </li>
+</ul>

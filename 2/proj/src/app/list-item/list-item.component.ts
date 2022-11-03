@@ -25,10 +25,6 @@ export class ListItemComponent implements OnInit, OnDestroy {
     console.log(this.user);
   }
 
-  ngOnDestroy(): void {
-    clearInterval(this.intervalId);
-  }
-
   ngOnInit() {
     this.intervalId = setInterval(() => {
 
@@ -38,5 +34,9 @@ export class ListItemComponent implements OnInit, OnDestroy {
   selectClickHandler($event: MouseEvent) {
     $event.stopPropagation();
     this.customEvent.emit({ test: 123 });
+  }
+
+  ngOnDestroy(): void {
+    clearInterval(this.intervalId);
   }
 }

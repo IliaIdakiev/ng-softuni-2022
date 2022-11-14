@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Test } from './test';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'modules-and-routing';
+  constructor(private t: Test) {
+    (window as any).t3 = t;
+  }
 }

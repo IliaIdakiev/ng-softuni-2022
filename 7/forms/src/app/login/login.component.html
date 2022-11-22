@@ -1,0 +1,18 @@
+<form #loginForm="ngForm" (ngSubmit)="handleFormSubmit(loginForm)">
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input id="email" type="text" name="email" #emailInput="ngModel" ngModel email required>
+    <ng-container *ngIf="emailInput.touched">
+      <div *ngIf="emailInput.errors?.['required']">Email is required</div>
+      <div *ngIf="emailInput.errors?.['email']">Invalid email</div>
+    </ng-container>
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input id="password" type="text" name="password" #passwordInput="ngModel" ngModel [appMaxCount]="5">
+    <div *ngIf="passwordInput.errors?.['appMaxCount']">Password is longer than {{passwordInput.errors?.['appMaxCount']}}
+    </div>
+  </div>
+  <button>Login</button>
+</form>
+{{loginForm.value | json }}

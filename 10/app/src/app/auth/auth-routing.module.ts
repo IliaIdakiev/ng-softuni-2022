@@ -7,7 +7,7 @@ import { RegisterComponent } from "./register/register.component";
 
 const routes: Routes = [
   {
-    path: 'auth/login',
+    path: 'login',
     component: LoginComponent,
     canActivate: [AuthActivate],
     data: {
@@ -16,7 +16,7 @@ const routes: Routes = [
     }
   },
   {
-    path: 'auth/register',
+    path: 'register',
     component: RegisterComponent,
     canActivate: [AuthActivate],
     data: {
@@ -25,7 +25,7 @@ const routes: Routes = [
     }
   },
   {
-    path: 'auth/logout',
+    path: 'logout',
     component: LogoutComponent,
     canActivate: [AuthActivate],
     data: {
@@ -34,7 +34,7 @@ const routes: Routes = [
     }
   },
   {
-    path: 'auth/profile',
+    path: 'profile',
     component: ProfileComponent,
     canActivate: [AuthActivate],
     data: {

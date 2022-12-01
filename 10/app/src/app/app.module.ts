@@ -5,19 +5,19 @@ import { CoreModule } from './core/core.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from './shared/shared.module';
-import { CommonModule } from '@angular/common';
 import { MyModule } from './my-module';
 import { AppRoutingModule } from './app-routing.module';
-import { AuthModule } from './auth/auth.module';
-import { ThemeModule } from './theme/theme.module';
+import { appInterceptorProvider } from './app.interceptor';
+import { AuthenticateComponent } from './authenticate/authenticate.component';
+import { API_ERROR } from './shared/constants';
+import { BehaviorSubject } from 'rxjs';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    AuthenticateComponent
   ],
   imports: [
-    AuthModule,
-    ThemeModule,
     AppRoutingModule,
     BrowserModule,
     CoreModule,
@@ -25,7 +25,13 @@ import { ThemeModule } from './theme/theme.module';
     SharedModule,
     MyModule.withProviders()
   ],
-  providers: [],
+  providers: [
+    appInterceptorProvider,
+    {
+      provide: API_ERROR,
+      useValue: new BehaviorSubject(null)
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

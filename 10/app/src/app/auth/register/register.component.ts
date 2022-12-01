@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 // import { catchError, map, of, throwError } from 'rxjs';
 import { appEmailDomains } from 'src/app/shared/constants';
 import { appEmailValidator, sameValueGroupValidator } from 'src/app/shared/validators';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-register',
@@ -24,22 +26,14 @@ export class RegisterComponent {
     })
   });
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) { }
 
   registerHandler() {
-    console.log(this.form.value);
+    if (this.form.invalid) { return; }
+    const { username, email, pass: { password, rePassword } = {}, tel } = this.form.value;
+    this.authService.register(username!, email!, password!, rePassword!, tel || undefined)
+      .subscribe(user => {
+        this.router.navigate(['/theme/recent']);
+      });
   }
 }
-
-// of(1).pipe(
-//   map(() => {
-//     throw new Error('BAD ERROR!');
-//   }),
-//   catchError(error => {
-//     console.log(error);
-//     return throwError(() => error)
-//   })
-// ).subscribe({
-//   next: (value) => { console.log(value) },
-//   error: (error) => console.error(error)
-// });

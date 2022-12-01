@@ -20,16 +20,18 @@ export class LoginComponent {
   ) form!: ElementRef<HTMLInputElement>;
   // @ViewChild('files', { static: true }) files!: ElementRef<HTMLInputElement>;
 
-  constructor(private activatedRoute: ActivatedRoute, private router: Router, private authServie: AuthService) {
+  constructor(private activatedRoute: ActivatedRoute, private router: Router, private authService: AuthService) {
 
   }
 
   loginHandler(form: NgForm): void {
     // console.log(this.files.nativeElement.files);
     if (form.invalid) { return; }
-    this.authServie.user = {
-      username: 'John'
-    } as any;
+    const { email, password } = form.value;
+    this.authService.login(email!, password!)
+      .subscribe(user => {
+        this.router.navigate(['/theme/recent']);
+      });
 
     const returnUrl = this.activatedRoute.snapshot.queryParams['returnUrl'] || '/';
 

@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { HomeComponent } from './home/home.component';
 import { SharedModule } from '../shared/shared.module';
+import { ErrorComponent } from './error/error.component';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { SharedModule } from '../shared/shared.module';
     HomeComponent,
     HeaderComponent,
     FooterComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    ErrorComponent
   ],
   imports: [
     CommonModule,
@@ -31,7 +33,8 @@ import { SharedModule } from '../shared/shared.module';
     HomeComponent,
     HeaderComponent,
     FooterComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    ErrorComponent
   ]
 })
 export class CoreModule { }

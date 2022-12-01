@@ -1,0 +1,77 @@
+<form [formGroup]="form" class="register" (ngSubmit)="registerHandler()">
+
+  <fieldset>
+    <h2>Registration Form</h2>
+
+    <!-- username -->
+    <p class="field field-icon">
+      <label for="username"><span><i class="fas fa-user"></i></span></label>
+      <input class="input-error" type="text" formControlName="username" id="username" placeholder="Johny">
+    </p>
+    <ng-container *ngIf="form.get('username')?.touched">
+      <p *ngIf="form.get('username')?.errors?.['required']" class="error">
+        Username is required!
+      </p>
+      <p *ngIf="form.get('username')?.errors?.['minlength']" class="error">
+        Username should be longer than 5 chars
+      </p>
+    </ng-container>
+
+    <!-- email -->
+    <p class="field field-icon">
+      <label for="email"><span><i class="fas fa-envelope"></i></span></label>
+      <input type="email" formControlName="email" id="email" placeholder="john.doe@gmail.com">
+    </p>
+    <ng-container *ngIf="form.get('email')?.touched">
+      <p class="error" *ngIf="form.get('email')?.errors?.['required']">
+        Email is required!
+      </p>
+      <p class="error" *ngIf="form.get('email')?.errors?.['appEmailValidator']">
+        Email is not valid!
+      </p>
+    </ng-container>
+
+    <!-- telephone -->
+    <p class="field field-icon">
+      <label for="tel"><span><i class="fas fa-phone"></i></span></label>
+      <select name="select-tel" id="select-tel" class="tel" formControlName="ext">
+        <option value="00359">+359</option>
+        <option value="00358">+358</option>
+      </select>
+      <input type="text" formControlName="tel" id="tel" placeholder="885 888 888">
+    </p>
+
+    <!-- password -->
+    <ng-container formGroupName="pass">
+      <p class="field field-icon">
+        <label for="password"><span><i class="fas fa-lock"></i></span></label>
+        <input type="password" formControlName="password" id="password" placeholder="******">
+      </p>
+      <ng-container *ngIf="form.get('pass')?.get('password')?.touched">
+        <p class="error" *ngIf="form.get('pass')?.get('password')?.errors?.['required']">
+          Password is required!
+        </p>
+        <p class="error" *ngIf="form.get('pass')?.get('password')?.errors?.['minlength']">
+          Password must be at least 5 characters!
+        </p>
+      </ng-container>
+
+      <!-- rePassword -->
+      <p class="field field-icon">
+        <label for="rePassword"><span><i class="fas fa-lock"></i></span></label>
+        <input type="password" formControlName="rePassword" id="rePassword" placeholder="******">
+      </p>
+
+      <p *ngIf="form.get('pass')?.errors?.['sameValueGroupValidator'] && form.get('pass')?.get('rePassword')?.touched"
+        class="error">Repeat Password does not match
+        password!</p>
+    </ng-container>
+    <button [disabled]="form.invalid">Create Account</button>
+
+    <p class="text-center">
+      Have an account?
+      <a routerLink="/auth/login">Log In</a>
+    </p>
+
+  </fieldset>
+</form>

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject, catchError, filter, of, Subscription, tap } from 'rxjs';
+import { BehaviorSubject, catchError, filter, of, Subscription, tap, throwError } from 'rxjs';
 import { IUser } from '../shared/interfaces';
 
 @Injectable({
@@ -48,7 +48,7 @@ export class AuthService implements OnDestroy {
         tap(user => this.user$$.next(user)),
         catchError((err) => {
           this.user$$.next(null);
-          return of(err); // [off];
+          return throwError(() => err);
         })
       );
   }
